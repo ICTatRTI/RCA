@@ -13,7 +13,8 @@ RelComp(
   method = "pearson",
   use = "pairwise.complete.obs",
   file = "RelCompOutput.txt",
-  digits = 3
+  digits = 3,
+  geneigenType = "cholesky"
 )
 }
 \arguments{
@@ -33,6 +34,12 @@ should be included in the analysis.}
 \item{use}{See \code{\link{cor}}.}
 
 \item{file}{Character. File name with an'.txt' extention for saving output.}
+
+\item{digits}{Integer. The number of decimal places for printing output. The 
+default is 3.}
+
+\item{geneigenType}{Character. Default in \code{"cholesky"}. 
+The other option is \code{"geigen"} which uses the `geigen` R package.}
 }
 \description{
 R implementation of Reliable Component Analysis of Cliff & Caruso 1998
@@ -41,7 +48,7 @@ R implementation of Reliable Component Analysis of Cliff & Caruso 1998
 
 # Replicate the analyses of Cliff and Caruso (1998)
 
-library(RCA)
+library(RelComp)
 
 # simulate data using the Cliff and Caruso (1998) correlation matrix
 data(corr)
