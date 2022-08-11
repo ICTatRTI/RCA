@@ -20,8 +20,11 @@
 #' 
 #' @param file Character. File name with an'.txt' extention for saving output.
 #' 
-#' @prama digits Integer. The number of decimal places for printing output. The 
+#' @param digits Integer. The number of decimal places for printing output. The 
 #' default is 3.
+#' 
+#' @param geneigenType Character. Default in \code{"cholesky"}. 
+#' The other option is \code{"geigen"} which uses the `geigen` R package.
 #' 
 #' @import geigen
 #' @export
@@ -53,7 +56,8 @@ RelComp <- function(data, varlist, reliab,
                     method = "pearson", 
                     use = "pairwise.complete.obs",
                     file = "RelCompOutput.txt",
-                    digits = 3)
+                    digits = 3,
+                    geneigenType = "cholesky")
 {
   
   # estimate the correlation matrix from the data
@@ -65,20 +69,29 @@ RelComp <- function(data, varlist, reliab,
   diff  <- diag - rel2
   rstar <- corr - diff
   
-  # generalized eigenvalues - equal to component reliabilities
-  # generalized eigenvectors - vectors of weights that are not
-  # normed to have sum of squared elements = 1
-  reliabilities   <- geigen(rstar, corr)
-  weights_nonorm  <- reliabilities$vectors
-  weights_nonorm  <- -1*weights_nonorm[,ncol(weights_nonorm):1] 
-  reliabilities   <- rev( reliabilities$values )
+  
+  if(geneigenType=="geigen")
+  {
+    # generalized eigenvalues - equal to component reliabilities
+    # generalized eigenvectors - vectors of weights that are not
+    # normed to have sum of squared elements = 1
+    reliabilities   <- geigen(rstar, corr)
+    weights_nonorm  <- reliabilities$vectors
+    weights_nonorm  <- -1*weights_nonorm[,ncol(weights_nonorm):1]  
+    reliabilities   <- rev( reliabilities$values )
+  }
+  if(geneigenType=="cholesky")
+  {
+    # alternative method to derive weight_nonorm
+    F <- chol(solve(corr))
+    A <- F %*% rstar %*% t(F)
+    weight_nonorm <- t(F) %*% eigen(A)$vectors
+    reliabilities <- eigen(A)$values
+  }
+
+  
   
   nvar <- nrow(weights_nonorm)
-  
-  # alternative method to derive weight_nonorm
-  F <- chol(solve(corr))
-  A <- F %*% rstar %*% t(F)
-  weight_nonorm_a <- t(F) %*% eigen(A)$vectors
   
   # normed weights
   weights_normed <- weights_nonorm
