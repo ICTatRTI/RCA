@@ -92,6 +92,7 @@ Component11       0.15473
 #### R Reliability Estimates
 
 `round(matrix(output$reliabilities),5)`
+
 Component1        0.98295
 Component2        0.86053
 Component3        0.83291
@@ -103,3 +104,4 @@ Component8        0.54383
 Component9        0.52492
 Component10       0.50280
 Component11       0.15477
+
