@@ -70,12 +70,11 @@ the estimated reliabilities (these will be the same, within rounding, between
 See "\inst\SAS\RelComp Macro C&C 98 example.lst"
 
 ```
-	RCA component reliability estimates             
+RCA component reliability estimates             
 	
-				 Unrotated     
-			   reliabilties    
-	Rel           of all       
- Component      components     
+			       
+Rel             Unrotated       
+Component       reliabilties     
 
 Component1        0.98296      
 Component2        0.86056      
