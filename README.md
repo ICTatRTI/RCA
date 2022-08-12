@@ -43,8 +43,7 @@ round(output$reliabilities[1:5], 3)
 
 ### SAS
 
-After installing the `RelComp` `R` package, navigate to the installation folder and
-find the "\inst\SAS" subfolder which contains the files 
+The following SAS files are available [here](https://github.com/ICTatRTI/RCA/tree/master/inst/SAS) 
 
 * `RelComp.sas` which contains a SAS macro for producing reliable components.
 
