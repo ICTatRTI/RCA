@@ -85,11 +85,9 @@ RelComp <- function(data, varlist, reliab,
     # alternative method to derive weight_nonorm
     F <- chol(solve(corr))
     A <- F %*% rstar %*% t(F)
-    weight_nonorm <- t(F) %*% eigen(A)$vectors
+    weights_nonorm <- t(F) %*% eigen(A)$vectors
     reliabilities <- eigen(A)$values
   }
-
-  
   
   nvar <- nrow(weights_nonorm)
   
@@ -114,10 +112,8 @@ RelComp <- function(data, varlist, reliab,
   # subset data 
   weights_nonorm_sub <- weights_nonorm[, 1:ncomps]
   weights_normed_sub <- weights_normed[, 1:ncomps]
-  # QUESTION: shouldn't we select columns based on critcomp?
-  #weights_nonorm_sub <- weights_nonorm[, critcomp]
-  #weights_normed_sub <- weights_normed[, critcomp]
   
+  # loadings
   loadssub <- corr %*% weights_nonorm_sub
   
   # varimax rotation
@@ -133,7 +129,7 @@ RelComp <- function(data, varlist, reliab,
     wgtrotnormed[,i] <- wgtrotnormed[,i]/norm(t(as.matrix(weights_normed_sub_rot[,i])))
   }
   
-  # component reliabilites from rotated weights
+  # component reliabilities from rotated weights
   relrot <- t(wgtrotnormed) %*% rstar %*% wgtrotnormed %*% 
     solve(t(wgtrotnormed) %*% corr %*% wgtrotnormed)
   relrotvec <- matrix( diag(relrot) )
@@ -150,6 +146,7 @@ RelComp <- function(data, varlist, reliab,
   colnames(loadsrot) <- paste("COMP", 
                               1:ncol(loadsrot), 
                               "ROT_LOAD", sep="") 
+  names(reliabilities) <- paste("COMPONENT", 1:length(reliabilities), sep="")
   
   sink(file=file)
   # printed output
