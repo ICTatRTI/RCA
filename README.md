@@ -4,13 +4,13 @@ RCA of Cliff &amp; Caruso 1998 <img src="man/figures/200px-Rti-logo.png" align="
 RCA was developed by RTI International to implement the Reliable Component 
 Analysis (RCA) of Cliff &amp; Caruso (1998).
 
-## Installation
+## Installing the `RCA` Package
 
 Go to [https://github.com/ICTatRTI/RCA/tags](https://github.com/ICTatRTI/RCA/tags)
-and click on the top most `tar.gz` link to download the newest version of the `RCA` package.
+and click on the most recent `tar.gz` link to download the newest version of the `RCA` package.
 
 
-In R, use
+Thin in the `R` console, use
 
 ```
 install.packages("path/to/RCA-0.1.0.tar.gz", repos = NULL, type = "source")
@@ -43,7 +43,14 @@ round(output$reliabilities[1:5], 3)
 
 ### SAS
 
-The following SAS files are available [here](https://github.com/ICTatRTI/RCA/tree/master/inst/SAS) 
+The following SAS files are available [here](https://github.com/ICTatRTI/RCA/tree/master/inst/SAS)
+and can be copy/pasted from github and saved as a SAS file on your computer for 
+use in SAS without requiring installation of the `RCA` `R` package. Select the 
+desired SAS file, click on the copy icon 
+
+<img src="man/figures/copy_icon.png" align="center" />
+
+and paste the code into your SAS program editor. 
 
 * `RelComp.sas` which contains a SAS macro for producing reliable components.
 
